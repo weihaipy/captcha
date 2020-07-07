@@ -10,18 +10,18 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	c := New()
+	c, _ := New()
 	if c == "" {
 		t.Errorf("expected id, got empty string")
 	}
 }
 
 func TestVerify(t *testing.T) {
-	id := New()
+	id, _ := New()
 	if Verify(id, []byte{0, 0}) {
 		t.Errorf("verified wrong captcha")
 	}
-	id = New()
+	id, _ = New()
 	d := globalStore.Get(id, false) // cheating
 	if !Verify(id, d) {
 		t.Errorf("proper captcha not verified")
@@ -29,7 +29,7 @@ func TestVerify(t *testing.T) {
 }
 
 func TestReload(t *testing.T) {
-	id := New()
+	id, _ := New()
 	d1 := globalStore.Get(id, false) // cheating
 	Reload(id)
 	d2 := globalStore.Get(id, false) // cheating again
