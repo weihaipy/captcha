@@ -76,15 +76,16 @@ func SetCustomStore(s Store) {
 
 // New creates a new captcha with the standard length, saves it in the internal
 // storage and returns its id.
-func New() string {
+func New() (string, []bytes) {
 	return NewLen(DefaultLen)
 }
 
 // NewLen is just like New, but accepts length of a captcha solution as the
 // argument.
-func NewLen(length int) (id string) {
+func NewLen(length int) (id string, value []bytes) {
 	id = randomId()
-	globalStore.Set(id, RandomDigits(length))
+	value = RandomDigits(length)
+	globalStore.Set(id, value)
 	return
 }
 
