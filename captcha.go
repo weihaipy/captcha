@@ -49,6 +49,7 @@ import (
 	"bytes"
 	"errors"
 	"io"
+	"strconv"
 	"time"
 )
 
@@ -86,6 +87,15 @@ func NewLen(length int) (id string, value []byte) {
 	id = randomId()
 	value = RandomDigits(length)
 	globalStore.Set(id, value)
+	return
+}
+
+// GetValueStr will return a string type value from NewLen
+func GetValueStr(value []byte) (valueStr string) {
+	for _, item := range value {
+		//item is uint8 type
+		valueStr += strconv.Itoa((int(item)))
+	}
 	return
 }
 
